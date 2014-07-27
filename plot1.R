@@ -1,6 +1,10 @@
 ## plot1.R
 ##
-## 
+## We download and read in data from the EPA's National Emissions Inventory (NEI) database.
+## We create a plot to investigate whether total emissions from PM2.5 decreased in the 
+## United States from 1999 to 2008.
+
+## If necessary, create directory, download and unzip dataset.
 
 if(!file.exists("./data")){dir.create("./data")}
 
@@ -13,10 +17,13 @@ if(!file.exists("./data/exdata-data-NEI_data")){
         unzip("./data/exdata-data-NEI_data.zip",exdir="./data")
 }
 
+## Read in dataset from file.
+
 NEI <- readRDS("./data/summarySCC_PM25.rds")
-##SCC <- readRDS("./data/Source_Classification_Code.rds")
+
 
 ## Build dataset.
+
 ustotemissions<-aggregate(NEI[,4], by=list(NEI$year), FUN=sum)
 colnames(ustotemissions) <- c("year", "ustotalemissions")
 
